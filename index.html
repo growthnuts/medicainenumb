@@ -256,6 +256,65 @@ a { color: inherit; text-decoration: none; }
 .sku-icon img { width:100%; height:100%; object-fit:cover; }
 .sku-icon { border:1px solid rgba(155,133,103,0.15); }
 
+/* ══ CONFIGURATOR ══ */
+.config-step { margin-bottom:32px; display:none; }
+.config-step.active { display:block; }
+.config-step-label {
+  font-family:var(--sans); font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--accent); font-weight:600; margin-bottom:16px; text-align:center;
+}
+.config-cards { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+.config-cards-2 { max-width:500px; margin:0 auto; }
+.config-card {
+  flex:1 1 260px; max-width:300px; padding:28px 24px; border:1px solid rgba(155,133,103,0.2);
+  cursor:pointer; transition:all 0.3s ease; text-align:center; background:var(--white);
+}
+.config-card:hover { border-color:var(--accent); box-shadow:0 8px 32px rgba(155,133,103,0.12); }
+.config-card.selected { border-color:var(--accent); background:var(--accent); }
+.config-card.selected .config-card-name,
+.config-card.selected .config-card-strength,
+.config-card.selected .config-card-details,
+.config-card.selected .config-card-ingredients,
+.config-card.selected .config-card-uses,
+.config-card.selected .config-card-forms { color:var(--white); }
+.config-card.disabled { opacity:0.35; pointer-events:none; }
+.config-card-sm { flex:1 1 200px; max-width:240px; padding:24px 20px; }
+.config-card-strength {
+  font-family:var(--sans); font-size:11px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--accent); font-weight:600; margin-bottom:8px;
+}
+.config-card-name { font-size:20px; font-weight:400; color:var(--dark); letter-spacing:2px; margin-bottom:8px; }
+.config-card-ingredients { font-family:var(--sans); font-size:11px; color:var(--muted-on-light); line-height:1.6; margin-bottom:8px; }
+.config-card-details { font-family:var(--sans); font-size:12px; color:var(--accent); font-weight:500; margin-bottom:6px; }
+.config-card-uses { font-family:var(--sans); font-size:11px; color:var(--muted-on-light); line-height:1.5; margin-bottom:8px; }
+.config-card-forms { font-family:var(--sans); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted-on-light); font-weight:600; }
+.config-sizes { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.config-size {
+  padding:20px 16px; border:1px solid rgba(155,133,103,0.2); cursor:pointer;
+  transition:all 0.3s ease; text-align:center; min-width:120px; background:var(--white);
+}
+.config-size:hover { border-color:var(--accent); box-shadow:0 4px 16px rgba(155,133,103,0.1); }
+.config-size.selected { border-color:var(--accent); background:var(--accent); }
+.config-size.selected .config-size-weight,
+.config-size.selected .config-size-type,
+.config-size.selected .config-size-price { color:var(--white); }
+.config-size-weight { font-size:18px; font-weight:400; color:var(--dark); letter-spacing:1px; margin-bottom:4px; }
+.config-size-type { font-family:var(--sans); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted-on-light); margin-bottom:8px; }
+.config-size-price { font-size:20px; font-weight:300; color:var(--accent); letter-spacing:1px; }
+.config-summary { display:none; text-align:center; margin-top:8px; }
+.config-summary.active { display:block; }
+.config-summary-inner {
+  padding:28px 32px; border:1px solid rgba(155,133,103,0.2); display:inline-block;
+  background:var(--white); margin-bottom:8px; min-width:320px;
+}
+.config-summary-line {
+  font-family:var(--sans); font-size:13px; color:var(--muted-on-light); margin-bottom:6px;
+}
+.config-summary-label { font-weight:600; color:var(--dark); }
+.config-summary-price {
+  font-size:32px; font-weight:300; color:var(--accent); letter-spacing:2px; margin-top:12px;
+}
+
 /* ══ SECTION IMAGE ══ */
 .section-image-row { display:flex; align-items:center; gap:48px; max-width:1060px; margin:0 auto; flex-wrap:wrap; }
 .section-image-row.reverse { flex-direction:row-reverse; }
@@ -499,6 +558,11 @@ a { color: inherit; text-decoration: none; }
 
 /* ══ RESPONSIVE ══ */
 @media (max-width:768px) {
+  .config-card { flex:1 1 100%; max-width:100%; }
+  .config-card-sm { flex:1 1 100%; max-width:100%; }
+  .config-size { min-width:100px; }
+  .config-summary-inner { min-width:auto; width:100%; }
+}
   .nav { padding:16px 24px; }
   .nav-logo { font-size:20px; letter-spacing:8px; }
   .nav-links a { font-size:7px; letter-spacing:2px; }
@@ -698,39 +762,143 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
-<!-- ═══ PRODUCT SHOWCASE ═══ -->
-<section class="product" id="collection">
-  <div class="product-imagery fade-up" id="productImagery">
-    <img class="product-photo active" id="photo-jar" data-group="jar" src="images/jar.png" alt="MediCaine Numb compound formulation jar" loading="lazy">
-    <img class="product-photo" id="photo-jar-open" data-group="jar" src="images/jar-open-hero.png" alt="MediCaine Numb formulation jar open" loading="lazy">
-    <img class="product-photo" id="photo-jar-topdown" data-group="jar" src="images/jar-open-topdown.png" alt="MediCaine Numb compound top-down view" loading="lazy">
-    <div class="product-thumbs" id="productThumbs">
-      <div class="product-thumb active" data-target="photo-jar"><img src="images/jar.png" alt="Jar"></div>
-      <div class="product-thumb" data-target="photo-jar-open"><img src="images/jar-open-hero.png" alt="Jar open"></div>
-      <div class="product-thumb" data-target="photo-jar-topdown"><img src="images/jar-open-topdown.png" alt="Jar top"></div>
+<!-- ═══ PRODUCT CONFIGURATOR ═══ -->
+<section class="product" id="collection" style="flex-direction:column;align-items:center;max-width:900px;margin:0 auto">
+  <div class="fade-up" style="text-align:center;width:100%">
+    <div class="section-eyebrow">Build Your Order</div>
+    <h2 class="section-heading">Choose Your Formulation</h2>
+    <div class="gold-divider"></div>
+    <p class="section-body" style="margin-bottom:40px">Select your strength tier, dosage form, and packaging — all formulations require a valid prescription.</p>
+  </div>
+
+  <!-- STEP 1: Choose Formulation -->
+  <div id="configStep1" class="config-step active fade-up" style="width:100%">
+    <div class="config-step-label">Step 1 — Choose Formulation</div>
+    <div class="config-cards">
+      <div class="config-card" data-agent="fast-blt" onclick="selectAgent(this)">
+        <div class="config-card-strength">7/10</div>
+        <div class="config-card-name">Fast Acting BLT</div>
+        <div class="config-card-ingredients">Benzocaine 20%, Lidocaine 10%, Tetracaine 10%, Phenylephrine 0.5%</div>
+        <div class="config-card-details">Onset ~15 min · Duration 2–4 hrs</div>
+        <div class="config-card-uses">Fillers · Microneedling · Moderately painful procedures</div>
+        <div class="config-card-forms">Cream or Ointment</div>
+      </div>
+      <div class="config-card" data-agent="max-lt" onclick="selectAgent(this)">
+        <div class="config-card-strength">9/10</div>
+        <div class="config-card-name">MAX Strength LT</div>
+        <div class="config-card-ingredients">Lidocaine 30%, Tetracaine 7%</div>
+        <div class="config-card-details">Onset ~20 min · Duration 1–3 hrs</div>
+        <div class="config-card-uses">RF Microneedling · CO2 Lasers · Tattoo Removal · PDO Threads</div>
+        <div class="config-card-forms">Ointment Only</div>
+      </div>
+      <div class="config-card" data-agent="max-blt-plus" onclick="selectAgent(this)">
+        <div class="config-card-strength">10/10</div>
+        <div class="config-card-name">MAX BLT Plus</div>
+        <div class="config-card-ingredients">Benzocaine 20%, Lidocaine 10%, Tetracaine 10%, Prilocaine 8%, Phenylephrine 0.5%</div>
+        <div class="config-card-details">Onset ~15 min · Duration 3–5 hrs</div>
+        <div class="config-card-uses">Most intensive procedures · Requires refrigeration</div>
+        <div class="config-card-forms">Ointment Only</div>
+      </div>
     </div>
   </div>
-  <div class="product-info fade-up d2">
-    <div class="section-eyebrow" style="text-align:left">Formulation Tiers · Rx Required</div>
-    <h3 class="product-name" id="productName">Fast Acting BLT</h3>
-    <div class="product-spec" id="productSpec">Benzocaine 20%, Lidocaine 10%, Tetracaine 10%, Phenylephrine 0.5% · Onset ~15 min · Duration 2–4 hrs</div>
-    <div class="gold-divider-left"></div>
-    <div class="product-price" id="productPrice">From $60</div>
-    <p class="product-desc" id="productDesc">Our fastest-onset compound formulation with phenylephrine for reduced systemic absorption. Ideal for fillers, microneedling, and moderately painful procedures. Strength rating: 7/10 (moderate intensity). Available in cream or ointment. Airless pump delivery (30g–200g) or jar (454g). Hypoallergenic base.</p>
-    <div class="sku-options">
-      <div class="sku active" data-price="From $60" data-spec="Benzocaine 20%, Lidocaine 10%, Tetracaine 10%, Phenylephrine 0.5% · Onset ~15 min · Duration 2–4 hrs" data-product="jar" data-name="Fast Acting BLT" data-desc="Our fastest-onset compound formulation with phenylephrine for reduced systemic absorption. Ideal for fillers, microneedling, and moderately painful procedures. Strength rating: 7/10 (moderate intensity). Available in cream or ointment. Airless pump delivery (30g–200g) or jar (454g). Hypoallergenic base.">
-        Fast Acting BLT · 7/10
+
+  <!-- STEP 2: Choose Form -->
+  <div id="configStep2" class="config-step fade-up" style="width:100%">
+    <div class="config-step-label">Step 2 — Choose Dosage Form</div>
+    <div class="config-cards config-cards-2">
+      <div class="config-card config-card-sm" data-form="cream" id="btnCream" onclick="selectForm(this)">
+        <div class="config-card-name">Cream</div>
+        <div class="config-card-details">30-day shelf life · Lighter texture</div>
       </div>
-      <div class="sku" data-price="From $60" data-spec="Lidocaine 30%, Tetracaine 7% · Onset ~20 min · Duration 1–3 hrs" data-product="jar" data-name="MAX Strength LT" data-desc="High-intensity compound formulation for RF microneedling, CO2 lasers, tattoo laser removal, lip fillers, PDO threads, and extremely painful procedures. Strength rating: 9/10 (high intensity). Ointment only. Airless pump delivery (30g–200g) or jar (454g). Hypoallergenic base.">
-        MAX Strength LT · 9/10
-      </div>
-      <div class="sku" data-price="From $60" data-spec="Benzocaine 20%, Lidocaine 10%, Tetracaine 10%, Prilocaine 8%, Phenylephrine 0.5% · Onset ~15 min · Duration 3–5 hrs" data-product="jar" data-name="MAX BLT Plus" data-desc="Our most powerful compound formulation with four anesthetic agents plus phenylephrine for reduced systemic absorption and fastest onset. For the most intensive aesthetic procedures. Strength rating: 10/10 (highest intensity). Ointment only. Requires refrigeration. Airless pump delivery (30g–200g) or jar (454g). Hypoallergenic base.">
-        MAX BLT Plus · 10/10
+      <div class="config-card config-card-sm" data-form="ointment" id="btnOintment" onclick="selectForm(this)">
+        <div class="config-card-name">Ointment</div>
+        <div class="config-card-details">180-day shelf life · Occlusive base</div>
       </div>
     </div>
-    <p class="form-note" style="margin-top:16px;font-size:10px;color:var(--muted-on-light)">All formulations require a valid prescription. Available in 30g, 50g, 100g, 150g, 200g (airless pump) and 454g (jar). Contact us for a complete formulary and wholesale pricing.</p>
-    <div style="margin-top:24px">
-      <a href="#contact" class="btn btn-dark btn-sm"><span>Request Formulary</span></a>
+  </div>
+
+  <!-- STEP 3: Choose Size & Packaging -->
+  <div id="configStep3" class="config-step fade-up" style="width:100%">
+    <div class="config-step-label">Step 3 — Choose Size &amp; Packaging</div>
+    <div class="config-sizes" id="configSizes">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div id="configSummary" class="config-summary fade-up" style="width:100%">
+    <div class="config-summary-inner">
+      <div class="config-summary-line"><span class="config-summary-label">Formulation:</span> <span id="summaryAgent">—</span></div>
+      <div class="config-summary-line"><span class="config-summary-label">Form:</span> <span id="summaryForm">—</span></div>
+      <div class="config-summary-line"><span class="config-summary-label">Size:</span> <span id="summarySize">—</span></div>
+      <div class="config-summary-line"><span class="config-summary-label">Packaging:</span> <span id="summaryPackaging">—</span></div>
+      <div class="config-summary-price" id="summaryPrice">—</div>
+    </div>
+    <a href="#contact" class="btn btn-dark" style="margin-top:20px"><span>Request This Formulation</span></a>
+    <p class="form-note" style="margin-top:12px;font-size:10px;color:var(--muted-on-light)">All formulations require a valid prescription. Contact us for wholesale pricing.</p>
+  </div>
+</section>
+
+<!-- ═══ HOW TO USE ═══ -->
+<section class="science" id="howtouse" style="background:var(--cream)">
+  <div class="fade-up">
+    <div class="section-eyebrow">How to Use</div>
+    <h2 class="section-heading">Apply Like a Lotion. That's It.</h2>
+    <div class="gold-divider"></div>
+    <p class="section-body">No wraps. No training. No wasted materials. Just pump, apply, and treat. MediCaine Numb™ simplifies your workflow while delivering higher-intensity numbing — saving you time, materials, and increasing profits per treatment.</p>
+  </div>
+  <div class="experience-steps">
+    <div class="step fade-up d1">
+      <div class="step-num">01</div>
+      <div class="step-title">Pump</div>
+      <div class="step-desc">Press the airless pump for a precise, measured dose every time. No scooping, no mess, no waste. The airtight system keeps the product fresh and uncontaminated.</div>
+    </div>
+    <div class="step fade-up d2">
+      <div class="step-num">02</div>
+      <div class="step-title">Apply</div>
+      <div class="step-desc">Apply directly to the treatment area like a lotion — no wraps, no plastic film, no special technique needed. Any staff member can do it with zero training.</div>
+    </div>
+    <div class="step fade-up d3">
+      <div class="step-num">03</div>
+      <div class="step-title">Wait 15–25 min</div>
+      <div class="step-desc">Clinical-depth numbness in as little as 15 minutes — nearly half the wait time of standard compounds. Your patients are ready faster.</div>
+    </div>
+    <div class="step fade-up d4">
+      <div class="step-num">04</div>
+      <div class="step-title">Treat</div>
+      <div class="step-desc">Proceed with confidence. Higher-intensity formulations mean deeper, longer-lasting numbness — fewer interruptions and better patient outcomes.</div>
+    </div>
+  </div>
+  <div class="features-grid" style="margin-top:48px">
+    <div class="feature-card fade-up d1">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">No Wraps Needed</div>
+      <div class="feature-desc">Eliminate plastic wrap and occlusive dressings. Apply directly to skin — saving time, materials, and reducing waste.</div>
+    </div>
+    <div class="feature-card fade-up d2">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Zero Training Required</div>
+      <div class="feature-desc">Any staff member can apply it. Pump, spread like a lotion, done. No specialized technique or certification needed.</div>
+    </div>
+    <div class="feature-card fade-up d3">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Higher Intensity</div>
+      <div class="feature-desc">Compound strengths far beyond OTC limits. Deeper, longer-lasting numbness means fewer patient complaints and better treatment outcomes.</div>
+    </div>
+    <div class="feature-card fade-up d4">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Save Time</div>
+      <div class="feature-desc">15-minute onset cuts wait times nearly in half. See more patients per day without sacrificing comfort or quality.</div>
+    </div>
+    <div class="feature-card fade-up d5">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Save Materials</div>
+      <div class="feature-desc">No plastic wrap, no gauze, no tape. The airless pump delivers the exact amount needed — eliminating product waste.</div>
+    </div>
+    <div class="feature-card fade-up d6">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Increase Profits</div>
+      <div class="feature-desc">Less materials + less time + more patients per day = higher margins on every procedure. The ROI is immediate.</div>
     </div>
   </div>
 </section>
@@ -741,7 +909,7 @@ a { color: inherit; text-decoration: none; }
     <div class="section-eyebrow">The Experience</div>
     <h2 class="section-heading section-heading-light">The Clinical<br><span class="gold-text" style="font-style:italic">Workflow</span></h2>
     <div class="gold-divider"></div>
-    <p class="section-body">MediCaine Numb™ integrates seamlessly into your existing treatment protocols. Select the formulation strength appropriate for the procedure, apply per clinical guidelines, and treat with confidence.</p>
+    <p class="section-body">MediCaine Numb™ integrates seamlessly into your existing treatment protocols. Select the formulation strength, apply like a lotion, and treat with confidence.</p>
   </div>
   <div style="max-width:520px;margin:40px auto 0">
     <img class="section-img fade-up" src="images/application-face.png" alt="Compound numbing formulation being applied during treatment" loading="lazy" style="border-radius:4px;box-shadow:0 16px 48px rgba(0,0,0,0.06)">
@@ -755,7 +923,7 @@ a { color: inherit; text-decoration: none; }
     <div class="step fade-up d2">
       <div class="step-num">02</div>
       <div class="step-title">Apply</div>
-      <div class="step-desc">Apply the compound formulation per clinical guidelines. Onset typically occurs within 15–25 minutes depending on the formulation selected.</div>
+      <div class="step-desc">Pump and apply directly to skin like a lotion. No wraps, no special technique. Onset in 15–25 minutes.</div>
     </div>
     <div class="step fade-up d3">
       <div class="step-num">03</div>
@@ -1095,7 +1263,7 @@ a { color: inherit; text-decoration: none; }
     </div>
     <div class="faq-item">
       <div class="faq-question">How do the strength tiers work? <span class="faq-icon">+</span></div>
-      <div class="faq-answer">MediCaine Numb™ offers formulations rated from 5/10 (mild, standard BLT) to 10/10 (highest intensity, MAX Strength BLT Plus). Standard formulations are suited for mildly painful procedures like laser hair removal. Extra-strength formulations (7/10) cover fillers and microneedling. Maximum-strength formulations (9–10/10) are designed for the most intensive procedures like RF microneedling, CO2 lasers, and PDO threads. Contact us for the complete formulary.</div>
+      <div class="faq-answer">MediCaine Numb™ offers three best-selling formulations: Fast Acting BLT (7/10) for fillers and microneedling, MAX Strength LT (9/10) for RF microneedling and CO2 lasers, and MAX BLT Plus (10/10) for the most intensive procedures. Each is available in six sizes from 30g to 454g in airtight airless pump packaging (30g–200g) or jar (454g).</div>
     </div>
   </div>
 </section>
@@ -1173,56 +1341,104 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-// Thumbnail definitions per product
-const thumbSets = {
-  jar: [
-    { target: 'photo-jar', src: 'images/jar.png', alt: 'Jar' },
-    { target: 'photo-jar-open', src: 'images/jar-open-hero.png', alt: 'Jar open' },
-    { target: 'photo-jar-topdown', src: 'images/jar-open-topdown.png', alt: 'Jar top' }
-  ]
+// ══ PRODUCT CONFIGURATOR ══
+const formulations = {
+  'fast-blt': {
+    name: 'Fast Acting BLT',
+    forms: ['cream', 'ointment'],
+    prices: { '30g': '$60', '50g': '$80', '100g': '$110', '150g': '$150', '200g': '$190', '454g': '$255' }
+  },
+  'max-lt': {
+    name: 'MAX Strength LT',
+    forms: ['ointment'],
+    prices: { '30g': '$60', '50g': '$80', '100g': '$110', '150g': '$160', '200g': '$200', '454g': '$270' }
+  },
+  'max-blt-plus': {
+    name: 'MAX BLT Plus',
+    forms: ['ointment'],
+    prices: { '30g': '$60', '50g': '$80', '100g': '$110', '150g': '$160', '200g': '$200', '454g': '$270' }
+  }
 };
 
-function buildThumbs(product) {
-  const container = document.getElementById('productThumbs');
-  container.innerHTML = '';
-  const set = thumbSets[product] || [];
-  set.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'product-thumb' + (i === 0 ? ' active' : '');
-    div.dataset.target = item.target;
-    div.innerHTML = '<img src="' + item.src + '" alt="' + item.alt + '">';
-    div.addEventListener('click', function() {
-      container.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      document.querySelectorAll('.product-photo').forEach(p => p.classList.remove('active'));
-      document.getElementById(this.dataset.target).classList.add('active');
-    });
-    container.appendChild(div);
-  });
+let selectedAgent = null;
+let selectedForm = null;
+let selectedSize = null;
+
+function selectAgent(el) {
+  document.querySelectorAll('#configStep1 .config-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedAgent = el.dataset.agent;
+  selectedForm = null;
+  selectedSize = null;
+
+  const info = formulations[selectedAgent];
+  const step2 = document.getElementById('configStep2');
+  const btnCream = document.getElementById('btnCream');
+  const btnOintment = document.getElementById('btnOintment');
+
+  // Reset step 2
+  btnCream.classList.remove('selected', 'disabled');
+  btnOintment.classList.remove('selected', 'disabled');
+
+  if (info.forms.length === 1 && info.forms[0] === 'ointment') {
+    btnCream.classList.add('disabled');
+  }
+
+  step2.classList.add('active');
+  document.getElementById('configStep3').classList.remove('active');
+  document.getElementById('configSummary').classList.remove('active');
+  step2.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-// SKU selector
-document.querySelectorAll('.sku').forEach(sku => {
-  sku.addEventListener('click', function() {
-    document.querySelectorAll('.sku').forEach(s => s.classList.remove('active'));
-    this.classList.add('active');
-    const price = this.dataset.price;
-    const spec = this.dataset.spec;
-    const product = this.dataset.product;
-    const name = this.dataset.name;
-    const desc = this.dataset.desc;
-    if (price) document.getElementById('productPrice').textContent = price;
-    if (spec) document.getElementById('productSpec').textContent = spec;
-    if (name) document.getElementById('productName').textContent = name;
-    if (desc) document.getElementById('productDesc').textContent = desc;
-    if (product) {
-      document.querySelectorAll('.product-photo').forEach(p => p.classList.remove('active'));
-      const target = document.getElementById('photo-' + product);
-      if (target) target.classList.add('active');
-      buildThumbs(product);
-    }
+function selectForm(el) {
+  if (el.classList.contains('disabled')) return;
+  document.querySelectorAll('#configStep2 .config-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedForm = el.dataset.form;
+  selectedSize = null;
+
+  const info = formulations[selectedAgent];
+  const sizesContainer = document.getElementById('configSizes');
+  sizesContainer.innerHTML = '';
+
+  const sizes = ['30g', '50g', '100g', '150g', '200g', '454g'];
+  sizes.forEach(size => {
+    const isJar = size === '454g';
+    const div = document.createElement('div');
+    div.className = 'config-size';
+    div.dataset.size = size;
+    div.innerHTML =
+      '<div class="config-size-weight">' + size + '</div>' +
+      '<div class="config-size-type">' + (isJar ? 'Jar' : 'Airless Pump') + '</div>' +
+      '<div class="config-size-price">' + info.prices[size] + '</div>';
+    div.addEventListener('click', function() { selectSize(this); });
+    sizesContainer.appendChild(div);
   });
-});
+
+  const step3 = document.getElementById('configStep3');
+  step3.classList.add('active');
+  document.getElementById('configSummary').classList.remove('active');
+  step3.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function selectSize(el) {
+  document.querySelectorAll('.config-size').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSize = el.dataset.size;
+
+  const info = formulations[selectedAgent];
+  const isJar = selectedSize === '454g';
+
+  document.getElementById('summaryAgent').textContent = info.name;
+  document.getElementById('summaryForm').textContent = selectedForm.charAt(0).toUpperCase() + selectedForm.slice(1);
+  document.getElementById('summarySize').textContent = selectedSize;
+  document.getElementById('summaryPackaging').textContent = isJar ? 'Jar' : 'Airless Pump';
+  document.getElementById('summaryPrice').textContent = info.prices[selectedSize];
+
+  const summary = document.getElementById('configSummary');
+  summary.classList.add('active');
+  summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 
 // Form tabs
 document.querySelectorAll('.form-tab').forEach(tab => {
