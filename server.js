@@ -105,10 +105,20 @@ http.createServer(async (req, res) => {
     return;
   }
 
-  // Static file serving
+  // Static file serving (supports clean URLs: /bronze -> /bronze.html)
   let filePath = url === '/' ? '/index.html' : url;
-  const fp = path.join(dir, filePath);
+  let fp = path.join(dir, filePath);
   fs.readFile(fp, (err, data) => {
+    if (err && !path.extname(filePath)) {
+      // Try adding .html for clean URLs
+      fp = path.join(dir, filePath + '.html');
+      fs.readFile(fp, (err2, data2) => {
+        if (err2) { res.writeHead(404); res.end('Not found'); return; }
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(data2);
+      });
+      return;
+    }
     if (err) { res.writeHead(404); res.end('Not found'); return; }
     const ext = path.extname(fp);
     res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
